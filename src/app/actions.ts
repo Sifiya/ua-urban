@@ -1,6 +1,6 @@
 'use server';
 import type { Database } from '@/types/supabase';
-import type { Word, Definition } from '@/types/types';
+import type { Word, MinimalWord, Definition, MinimalDefinition } from '@/types/types';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient<Database>(
@@ -9,13 +9,14 @@ const supabase = createClient<Database>(
 );
 
 export const addWordWithDefinition = async (word: string, definition: string) => {
+  let createdWord: Word;
   try {
-    const createdWord: Word = await addWord(word);
+    createdWord = await addWord(word);
     await addDefinition(definition, createdWord.id);
   } catch (error) {
     return { error, success: false };
   }
-  return { error: null, success: true };
+  return { error: null, success: true, word_id: createdWord.id };
 };
 
 const addWord = async (word: string): Promise<Word> => {
@@ -50,4 +51,24 @@ export const getAllWords = async (): Promise<Word[]> => {
   }
 
   return words;
+};
+
+export const getOneWord = async (id: string): Promise<MinimalWord> => {
+  const { data: words, error } = await supabase.from('words').select('id,word').eq('id', id);
+
+  if (error || !words || words.length === 0) {
+    throw error || new Error('Не вдалося отримати слова');
+  }
+
+  return words[0];
+};
+
+export const getWordDefinitions = async (wordId: string): Promise<MinimalDefinition[]> => {
+  const { data: definitions, error } = await supabase.from('definitions').select('id,text').eq('word_id', wordId);
+
+  if (error || !definitions) {
+    throw error || new Error('Не вдалося отримати визначення');
+  }
+
+  return definitions;
 };

@@ -4,6 +4,8 @@ import { useGetAllWords } from '@/hooks/useGetAllWords';
 import React from 'react';
 import { createAlphabet } from './utils';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 interface AlphabetListProps {}
 
@@ -23,7 +25,13 @@ export const AlphabetList = ({}: AlphabetListProps) => {
           <AccordionContent>
             <ul>
               {words.map((word) => (
-                <li key={word.id}>{word.word}</li>
+                <li key={word.id}>
+                  <Link href={`/word/${word.id}`}>
+                    <Button variant="link">
+                      {word.word}
+                    </Button>
+                  </Link>
+                </li>
               ))}
             </ul>
           </AccordionContent>
