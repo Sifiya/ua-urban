@@ -1,9 +1,7 @@
 'use server';
 import type { Database } from '@/types/supabase';
+import type { Word, Definition } from '@/types/types';
 import { createClient } from '@supabase/supabase-js';
-
-type Word = Database["public"]["Tables"]["words"]["Row"];
-type Definition = Database["public"]["Tables"]["definitions"]["Row"];
 
 const supabase = createClient<Database>(
   process.env.SUPABASE_API_URL || '',
@@ -42,4 +40,14 @@ const addDefinition = async (definition: string, wordId: string): Promise<Defini
   }
 
   return createdDefinition[0];
+};
+
+export const getAllWords = async (): Promise<Word[]> => {
+  const { data: words, error } = await supabase.from('words').select('*');
+
+  if (error || !words) {
+    throw error || new Error('Не вдалося отримати слова');
+  }
+
+  return words;
 };
