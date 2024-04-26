@@ -26,7 +26,7 @@ Test:
 
       - name: Run tests
         run: npm run test
-  
+
   Deploy-Preview:
     needs: [Test]
     runs-on: ubuntu-latest
