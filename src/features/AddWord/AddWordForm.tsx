@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { addWordWithDefinition } from '@/app/actions';
 
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -18,10 +19,22 @@ export const AddWordForm = ({}: AddWordFormProps) => {
     },
   });
 
+  const onSubmit = async (data: { word: string; definition: string }) => {
+    const { success, error } = await addWordWithDefinition(data.word, data.definition);
+    if (success) {
+      formMethods.reset();
+    }
+    if (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Card className="pt-3 pb-5 px-5">
       <Form {...formMethods}>
-        <div className="flex flex-col gap-5">
+        <form 
+          className="flex flex-col gap-5"
+          onSubmit={formMethods.handleSubmit(onSubmit)}>
           <FormField
             name="word"
             render={({ field }) => (
@@ -54,7 +67,7 @@ export const AddWordForm = ({}: AddWordFormProps) => {
           <Button type="submit" size="lg">
             Додати
           </Button>
-        </div>
+        </form>
       </Form>
     </Card>
   );
