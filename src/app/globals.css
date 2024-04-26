@@ -79,3 +79,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
