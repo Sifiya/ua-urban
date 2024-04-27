@@ -1,20 +1,15 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { userEvent, UserEvent } from '@testing-library/user-event';
-import * as actions from '@/app/actions';
+import { mockGetAllWords } from '@/__test__/mockActions';
 import { AlphabetList } from './AlphabetList';
 
 let user: UserEvent;
 
-jest.mock('@/app/actions', () => ({
-  getAllWords: jest.fn(),
-}));
-const mockedGetAllWords = actions.getAllWords as jest.Mock;
-
 describe('AlphabetList', () => {
   beforeEach(() => {
     user = userEvent.setup({ delay: null });
-    mockedGetAllWords.mockReturnValue([
+    mockGetAllWords.mockReturnValue([
       { id: 1, word: 'apple' },
       { id: 2, word: 'banana' },
       { id: 3, word: 'orange' },
