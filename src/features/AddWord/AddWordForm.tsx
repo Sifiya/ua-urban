@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { addWordWithDefinition } from '@/app/actions';
 
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
@@ -12,6 +13,7 @@ import { Button } from '@/components/ui/button';
 interface AddWordFormProps {}
 
 export const AddWordForm = ({}: AddWordFormProps) => {
+  const router = useRouter();
   const formMethods = useForm({
     defaultValues: {
       word: '',
@@ -20,9 +22,10 @@ export const AddWordForm = ({}: AddWordFormProps) => {
   });
 
   const onSubmit = async (data: { word: string; definition: string }) => {
-    const { success, error } = await addWordWithDefinition(data.word, data.definition);
-    if (success) {
+    const { success, error, word_id } = await addWordWithDefinition(data.word, data.definition);
+    if (word_id) {
       formMethods.reset();
+      router.push(`/word/${word_id}`);
     }
     if (error) {
       console.error(error);

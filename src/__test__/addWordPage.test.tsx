@@ -1,14 +1,9 @@
 import React from 'react';
-import * as actions from '@/app/actions';
 import { render, screen } from '@testing-library/react';
 import { userEvent, UserEvent } from '@testing-library/user-event';
+import { mockAddWordWithDefinition } from './mockActions';
 
 import AddWordPage from '@/app/add/page';
-
-jest.mock('@/app/actions', () => ({
-  addWordWithDefinition: jest.fn(),
-}));
-const mockAddWordWithDefinition = actions.addWordWithDefinition as jest.Mock;
 
 let user: UserEvent;
 
