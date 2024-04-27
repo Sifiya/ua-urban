@@ -15,5 +15,5 @@ export const AddDefinition = () => {
     );
   }
 
-  return <AddDefinitionForm />;
+  return <AddDefinitionForm onSuccess={() => setShowForm(false)}/>;
 };
