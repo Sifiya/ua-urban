@@ -20,19 +20,18 @@ export const HeaderMenu = () => {
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        <NavigationMenuItem>
-          {MENU_LINKS.map(({ href, label }) => (
+        {MENU_LINKS.map(({ href, label }) => (
+          <NavigationMenuItem key={`${href.replace('/','')}`}>
             <Link 
               href={href} 
-              key={`${href.replace('/','')}`}
               passHref
               legacyBehavior>
               <NavigationMenuLink active={pathname === href} className={navigationMenuTriggerStyle()} >
                 {label}
               </NavigationMenuLink>
             </Link>
-          ))}
-        </NavigationMenuItem>
+          </NavigationMenuItem>
+        ))}
       </NavigationMenuList>
     </NavigationMenu>
   );
