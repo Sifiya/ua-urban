@@ -1,7 +1,7 @@
 import React from 'react'
 import { getOneWord, getWordDefinitions } from '@/app/actions';
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { AddDefinition } from '@/features/AddDefinition';
 
 interface WordPageProps {
   params: {
@@ -26,7 +26,7 @@ const WordPage = async ({ params: { wordId }}: WordPageProps) => {
           {text}
         </Card>
       ))}
-      <Button>+ Додати визначення</Button>
+      <AddDefinition />
     </div>
   );
 }

@@ -31,7 +31,7 @@ const addWord = async (word: string): Promise<Word> => {
   return createdWord[0];
 };
 
-const addDefinition = async (definition: string, wordId: string): Promise<Definition> => {
+export const addDefinition = async (definition: string, wordId: string): Promise<Definition> => {
   const { data: createdDefinition, error } = await supabase.from('definitions').insert([
     { text: definition, word_id: wordId },
   ]).select();
@@ -64,7 +64,7 @@ export const getOneWord = async (id: string): Promise<MinimalWord> => {
 };
 
 export const getWordDefinitions = async (wordId: string): Promise<MinimalDefinition[]> => {
-  const { data: definitions, error } = await supabase.from('definitions').select('id,text').eq('word_id', wordId);
+  const { data: definitions, error } = await supabase.from('definitions').select('id,word_id,text').eq('word_id', wordId);
 
   if (error || !definitions) {
     throw error || new Error('Не вдалося отримати визначення');
