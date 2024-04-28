@@ -1,12 +1,7 @@
 'use server';
-import type { Database } from '@/types/supabase';
 import type { Word, MinimalWord, Definition, MinimalDefinition } from '@/types/types';
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@/utils/supabase/server';
 
-const supabase = createClient<Database>(
-  process.env.SUPABASE_API_URL || '',
-  process.env.SUPABASE_API_KEY || ''
-);
 
 export const addWordWithDefinition = async (word: string, definition: string) => {
   let createdWord: Word;
@@ -20,6 +15,8 @@ export const addWordWithDefinition = async (word: string, definition: string) =>
 };
 
 const addWord = async (word: string): Promise<Word> => {
+  const supabase = createClient();
+
   const { data: createdWord, error } = await supabase.from('words').insert([
     { word },
   ]).select();
@@ -32,6 +29,8 @@ const addWord = async (word: string): Promise<Word> => {
 };
 
 export const addDefinition = async (definition: string, wordId: string): Promise<Definition> => {
+  const supabase = createClient();
+
   const { data: createdDefinition, error } = await supabase.from('definitions').insert([
     { text: definition, word_id: wordId },
   ]).select();
@@ -44,6 +43,8 @@ export const addDefinition = async (definition: string, wordId: string): Promise
 };
 
 export const getAllWords = async (): Promise<Word[]> => {
+  const supabase = createClient();
+
   const { data: words, error } = await supabase.from('words').select('*');
 
   if (error || !words) {
@@ -54,6 +55,7 @@ export const getAllWords = async (): Promise<Word[]> => {
 };
 
 export const getOneWord = async (id: string): Promise<MinimalWord> => {
+  const supabase = createClient();
   const { data: words, error } = await supabase.from('words').select('id,word').eq('id', id);
 
   if (error || !words || words.length === 0) {
@@ -64,6 +66,7 @@ export const getOneWord = async (id: string): Promise<MinimalWord> => {
 };
 
 export const getWordDefinitions = async (wordId: string): Promise<MinimalDefinition[]> => {
+  const supabase = createClient();
   const { data: definitions, error } = await supabase.from('definitions').select('id,word_id,text').eq('word_id', wordId);
 
   if (error || !definitions) {

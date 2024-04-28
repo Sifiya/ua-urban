@@ -1,5 +1,5 @@
 import React from 'react'
-import { getOneWord } from '@/app/actions';
+import { getOneWord } from '@/app/api/actions';
 import { AddDefinition } from '@/features/AddDefinition';
 import { DefinitionsList } from '@/features/Definitions';
 

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getWordDefinitions } from '@/app/actions';
+import { getWordDefinitions } from '@/app/api/actions';
 import { Card } from '@/components/ui/card';
 import GridLoader from 'react-spinners/GridLoader';
 

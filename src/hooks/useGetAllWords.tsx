@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllWords } from '@/app/actions';
+import { getAllWords } from '@/app/api/actions';
 import type { Word } from '@/types/types';
 
 export const useGetAllWords = () => {
