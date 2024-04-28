@@ -1,6 +1,6 @@
 import * as actions from '@/app/api/actions';
 
-jest.mock('@/app/actions', () => ({
+jest.mock('@/app/api/actions', () => ({
   addWordWithDefinition: jest.fn(),
   getAllWords: jest.fn(),
   addDefinition: jest.fn(),
