@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useQueryClient } from '@tanstack/react-query'; 
 import { signInWithEmail } from '@/app/api/auth.api';
 
 import {
@@ -29,6 +30,7 @@ type SignInFormData = {
 };
 
 export const SignInForm = ({}: SignInFormProps) => {
+  const queryClient = useQueryClient();
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -40,10 +42,13 @@ export const SignInForm = ({}: SignInFormProps) => {
   });
 
   const onSubmit = async ({ email, password }: SignInFormData) => {
-    const { success, error, data } = await signInWithEmail(email, password);
+    const { success, error } = await signInWithEmail(email, password);
     if (success) {
       setIsOpen(false);
       setErrorMessage(null);
+      queryClient.invalidateQueries({
+        queryKey: ['profile']
+      });
     }
     if (error) {
       setErrorMessage(error);

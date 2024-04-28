@@ -1,8 +1,6 @@
 'use server';
 import { createClient } from '@/utils/supabase/server';
 
-const supabase = createClient();
-
 const withErrorHandling = <T, K>(data?: K, error?: T): {
   error: T | null,
   success: boolean,
@@ -16,6 +14,7 @@ const withErrorHandling = <T, K>(data?: K, error?: T): {
 };
 
 export const signUp = async (email: string, password: string) => {
+  const supabase = createClient();
   const { data: user, error } = await supabase.auth.signUp({
     email,
     password,
@@ -25,6 +24,7 @@ export const signUp = async (email: string, password: string) => {
 };
 
 export const signInWithEmail = async (email: string, password: string) => {
+  const supabase = createClient();
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -34,6 +34,18 @@ export const signInWithEmail = async (email: string, password: string) => {
 };
 
 export async function signOut() {
+  const supabase = createClient();
   const { error } = await supabase.auth.signOut()
   return withErrorHandling(true, error);
+}
+
+export const getUser = async () => {
+  const supabase = createClient();
+
+  const { data, error } = await supabase.auth.getUser();
+
+  if (error || !data?.user) {
+    return { isAuthenticated: false };
+  }
+  return { isAuthenticated: true };
 }
