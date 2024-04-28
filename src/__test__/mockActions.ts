@@ -1,4 +1,4 @@
-import * as actions from '@/app/actions';
+import * as actions from '@/app/api/actions';
 
 jest.mock('@/app/actions', () => ({
   addWordWithDefinition: jest.fn(),
