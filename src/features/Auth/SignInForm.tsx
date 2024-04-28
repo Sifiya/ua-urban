@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { signInWithEmail } from '@/app/api/auth.api';
 
 import {
   Dialog,
@@ -18,10 +19,22 @@ import {
   FormItem,
   FormLabel,
 } from '@/components/ui/form';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface SignInFormProps {}
 
+type SignInFormData = {
+  email: string;
+  password: string;
+};
+
 export const SignInForm = ({}: SignInFormProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const {
+    setAccessToken,
+  } = useAccessToken();
+
   const formMethods = useForm({
     defaultValues: {
       email: '',
@@ -29,18 +42,37 @@ export const SignInForm = ({}: SignInFormProps) => {
     },
   });
 
+  const onSubmit = async ({ email, password }: SignInFormData) => {
+    const { success, error, data } = await signInWithEmail(email, password);
+    if (success) {
+      setAccessToken(data as string);
+      setIsOpen(false);
+      setErrorMessage(null);
+    }
+    if (error) {
+      setErrorMessage(error);
+    }
+  };
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="outline">Вхід</Button>
       </DialogTrigger>
       <DialogContent>
         <Form {...formMethods}>
-          <form className="flex flex-col gap-5">
+          <form className="flex flex-col gap-5" onSubmit={formMethods.handleSubmit(onSubmit)}>
             <DialogHeader>
               <DialogTitle>Вхід</DialogTitle>
             </DialogHeader>
             <div className="flex flex-col gap-4">
+
+              {errorMessage && (
+                <Alert variant="destructive">
+                  <AlertTitle>Помилка</AlertTitle>
+                  <AlertDescription>{errorMessage}</AlertDescription>
+                </Alert>
+              )}
 
               <FormField
                 name="email"
