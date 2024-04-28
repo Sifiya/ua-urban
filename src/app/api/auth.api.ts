@@ -1,5 +1,7 @@
 'use server';
-import { supabase } from './supabase.init';
+import { createClient } from '@/utils/supabase/server';
+
+const supabase = createClient();
 
 const withErrorHandling = <T, K>(data?: K, error?: T): {
   error: T | null,

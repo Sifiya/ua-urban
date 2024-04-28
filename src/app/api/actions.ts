@@ -1,6 +1,8 @@
 'use server';
 import type { Word, MinimalWord, Definition, MinimalDefinition } from '@/types/types';
-import { supabase } from './supabase.init';
+import { createClient } from '@/utils/supabase/server';
+
+const supabase = createClient();
 
 export const addWordWithDefinition = async (word: string, definition: string) => {
   let createdWord: Word;

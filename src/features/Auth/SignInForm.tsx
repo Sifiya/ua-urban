@@ -31,9 +31,6 @@ type SignInFormData = {
 export const SignInForm = ({}: SignInFormProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const {
-    setAccessToken,
-  } = useAccessToken();
 
   const formMethods = useForm({
     defaultValues: {
@@ -45,7 +42,6 @@ export const SignInForm = ({}: SignInFormProps) => {
   const onSubmit = async ({ email, password }: SignInFormData) => {
     const { success, error, data } = await signInWithEmail(email, password);
     if (success) {
-      setAccessToken(data as string);
       setIsOpen(false);
       setErrorMessage(null);
     }

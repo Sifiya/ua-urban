@@ -1,11 +1,10 @@
-const useAccessToken = () => {
-  const accessToken = localStorage.getItem('accessToken');
-  const setAccessToken = (token: string) => {
-    localStorage.setItem('accessToken', token);
-  };
+import { useCookies } from 'next-client-cookies';
+
+export const useAccessToken = () => {
+  const cookies = useCookies();
+  const accessToken = cookies.get('access_token');
 
   return {
     accessToken,
-    setAccessToken
   };
 };
