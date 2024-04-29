@@ -67,3 +67,8 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.search-popover-content {
+  width: var(--radix-popover-trigger-width);
+  max-height: var(--radix-popover-content-available-height);
+}
