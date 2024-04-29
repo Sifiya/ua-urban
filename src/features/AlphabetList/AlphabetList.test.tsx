@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import { render } from '@/__test__/render';
 import { userEvent, UserEvent } from '@testing-library/user-event';
 import { mockGetAllWords } from '@/__test__/mockActions';
 import { AlphabetList } from './AlphabetList';
