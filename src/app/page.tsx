@@ -1,6 +1,4 @@
-import { Button } from "@/components/ui/button";
 import { AlphabetList } from "@/features/AlphabetList";
-import Link from "next/link"; 
 
 export default function Home() {
   return (

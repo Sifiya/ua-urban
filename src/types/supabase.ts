@@ -22,7 +22,7 @@ export type Database = {
         Insert: {
           author_id?: string | null
           created_at?: string
-          downvotes_count?: number | null
+          downvotes_count?: number
           id?: string
           text?: string | null
           upvotes_count?: number
@@ -31,7 +31,7 @@ export type Database = {
         Update: {
           author_id?: string | null
           created_at?: string
-          downvotes_count?: number | null
+          downvotes_count?: number
           id?: string
           text?: string | null
           upvotes_count?: number
@@ -127,7 +127,42 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      add_downvote: {
+        Args: {
+          insert_definition_id: string
+        }
+        Returns: number
+      }
+      add_upvote: {
+        Args: {
+          insert_definition_id: string
+        }
+        Returns: number
+      }
+      remove_downvote: {
+        Args: {
+          insert_definition_id: string
+        }
+        Returns: number
+      }
+      remove_upvote: {
+        Args: {
+          insert_definition_id: string
+        }
+        Returns: number
+      }
+      replace_down_with_up: {
+        Args: {
+          insert_definition_id: string
+        }
+        Returns: undefined
+      }
+      replace_up_with_down: {
+        Args: {
+          insert_definition_id: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       voteInt: "up" | "down"
