@@ -47,5 +47,5 @@ export const getUser = async () => {
   if (error || !data?.user) {
     return { isAuthenticated: false };
   }
-  return { isAuthenticated: true };
+  return { isAuthenticated: true, email: data.user.email };
 }
