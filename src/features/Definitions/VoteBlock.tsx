@@ -27,7 +27,7 @@ export const VoteBlock = ({
     mutationKey: SHARED_VOTE_KEY,
     mutationFn: (vote: 'up' | 'down') => setVote(definitionId, vote),
     onSuccess: () => queryClient.invalidateQueries({
-      queryKey: SHARED_VOTE_KEY
+      queryKey: ['words', wordId, 'definitions']
     }),
   });
 
