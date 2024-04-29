@@ -1,15 +1,20 @@
 'use server';
 import { createClient } from '@/utils/supabase/server';
 
-export const searchWord = async (searchString: string) => {
+export const searchWord = async (searchString: string, noLimit: boolean = false) => {
   const supabase = createClient();
-  const { data, error } = await supabase
+  let query = supabase
     .from('words')
     .select('id, word')
-    .ilike('word', `%${searchString}%`)
-    .limit(10)
-    .order('word', { ascending: true });
+    .ilike('word', `%${searchString}%`);
 
+  if (!noLimit) {
+    query = query.limit(10);
+  }
+    
+  query = query.order('word', { ascending: true });
+
+  const { data, error } = await query;
   if (error) {
     throw error;
   }
