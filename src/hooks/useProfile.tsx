@@ -9,5 +9,6 @@ export const useProfile = () => {
 
   return {
     isAuthenticated: data?.isAuthenticated,
+    email: data?.email,
   };
 };

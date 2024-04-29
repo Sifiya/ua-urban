@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { userEvent, UserEvent } from '@testing-library/user-event';
-import { mockAddWordWithDefinition } from './mockActions';
+import { mockAddWordWithDefinition, mockGetUser } from './mockActions';
 
 import AddWordPage from '@/app/add/page';
 
@@ -10,10 +10,12 @@ let user: UserEvent;
 describe('AddWordPage', () => {
   beforeEach(() => {
     user = userEvent.setup({ delay: null });
+    mockGetUser.mockResolvedValue({ isAuthenticated: true, email: 'fakemail' });
   });
 
-  test('should render form', () => {
-    render(<AddWordPage />);
+  test('should render form', async () => {
+    const jsx = await AddWordPage();
+    render(jsx);
     expect(screen.getByRole('heading', { name: /додати нове слово/i })).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: /слово/i })).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: /визначення/i })).toBeInTheDocument();
@@ -22,7 +24,9 @@ describe('AddWordPage', () => {
 
   test('should call addWordWithDefinition on submit', async () => {
     mockAddWordWithDefinition.mockResolvedValue({ success: true });
-    render(<AddWordPage />);
+    const jsx = await AddWordPage();
+
+    render(jsx);
     const word = 'word';
     const definition = 'definition';
     const button = screen.getByRole('button', { name: /додати/i });

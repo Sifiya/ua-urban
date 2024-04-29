@@ -1,7 +1,7 @@
 import React from 'react';
 import { screen, act } from '@testing-library/react';
 import { userEvent, UserEvent } from '@testing-library/user-event';
-import { mockAddDefinition } from '@/__test__/mockActions';
+import { mockAddDefinition, mockGetUser } from '@/__test__/mockActions';
 import { render } from '@/__test__/render';
 import { mockUseParams } from '../../../jest.setup';
 
@@ -9,10 +9,13 @@ import { AddDefinition } from './AddDefinition';
 
 let user: UserEvent;
 
+const getButton = async () => screen.findByText('+ Додати визначення');
+
 describe('AddDefinition', () => {
   beforeEach(() => {
     user = userEvent.setup({ delay: null });
     mockUseParams.mockReturnValue({ wordId: '1' });
+    mockGetUser.mockResolvedValue({ isAuthenticated: true, email: 'fakemail' });
   });
 
   afterEach(() => {
@@ -20,15 +23,16 @@ describe('AddDefinition', () => {
     mockUseParams.mockReset();
   });
 
-  test('should render a button', () => {
+  test('should render a button', async () => {
     render(<AddDefinition />);
-    expect(screen.getByText('+ Додати визначення')).toBeInTheDocument();
+    expect(await getButton()).toBeInTheDocument();
   });
 
   test('should show a form when the button is clicked', async () => {
     render(<AddDefinition />);
+    const button = await getButton();
     await act(async () => {
-      await user.click(screen.getByText('+ Додати визначення'));
+      await user.click(button);
     });
     expect(screen.getByText('Визначення')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Додати' })).toBeInTheDocument();
@@ -38,7 +42,7 @@ describe('AddDefinition', () => {
     mockAddDefinition.mockResolvedValueOnce({ text: 'Hello' });
 
     render(<AddDefinition />);
-    await user.click(screen.getByText('+ Додати визначення'));
+    await user.click(await getButton());
 
     const definition = 'Hello, world!';
     await user.click(screen.getByLabelText('Визначення'));
@@ -53,7 +57,7 @@ describe('AddDefinition', () => {
     mockAddDefinition.mockRejectedValueOnce(new Error(errorMessage));
 
     render(<AddDefinition />);
-    await user.click(screen.getByText('+ Додати визначення'));
+    await user.click(await getButton());
 
     const definition = 'Hello, world!';
     await user.click(screen.getByLabelText('Визначення'));

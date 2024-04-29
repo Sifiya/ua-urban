@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { usePathname } from 'next/navigation';
 import { useProfile } from '@/hooks/useProfile';
 import { useQueryClient } from '@tanstack/react-query';
@@ -23,9 +23,14 @@ const MENU_LINKS = [
 ];
 
 export const HeaderMenu = () => {
+  const { isAuthenticated, email } = useProfile();
+
+  const filteredLinks = useMemo(() => MENU_LINKS.filter((link) => {
+    return link.href !== '/add' || isAuthenticated;
+  }), [isAuthenticated]);
+
   const queryClient = useQueryClient();
   const pathname = usePathname();
-  const { isAuthenticated } = useProfile();
   const onSignOut = async () => {
     const { error } = await signOut();
     if (error) {
@@ -41,7 +46,7 @@ export const HeaderMenu = () => {
     <div className="w-full flex flex-row justify-between px-5">
       <NavigationMenu>
         <NavigationMenuList>
-          {MENU_LINKS.map(({ href, label }) => (
+          {filteredLinks.map(({ href, label }) => (
             <NavigationMenuItem key={`${href.replace('/','')}`}>
               <Link 
                 href={href} 
@@ -64,7 +69,7 @@ export const HeaderMenu = () => {
       )}
       {isAuthenticated && (
         <div className="flex items-center gap-3">
-          User!
+          <span>{email}</span>
           <Button variant="outline" onClick={onSignOut}>Вийти</Button>
         </div>
       )}
