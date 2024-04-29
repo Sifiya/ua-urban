@@ -11,29 +11,84 @@ export type Database = {
     Tables: {
       definitions: {
         Row: {
+          author_id: string | null
           created_at: string
-          id: number
+          downvotes_count: number
+          id: string
           text: string | null
+          upvotes_count: number
           word_id: string
         }
         Insert: {
+          author_id?: string | null
           created_at?: string
-          id?: number
+          downvotes_count?: number | null
+          id?: string
           text?: string | null
+          upvotes_count?: number
           word_id: string
         }
         Update: {
+          author_id?: string | null
           created_at?: string
-          id?: number
+          downvotes_count?: number | null
+          id?: string
           text?: string | null
+          upvotes_count?: number
           word_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "definitions_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "definitions_word_id_fkey"
             columns: ["word_id"]
             isOneToOne: false
             referencedRelation: "words"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      votes: {
+        Row: {
+          created_at: string
+          definition_id: string
+          id: string
+          user_id: string
+          vote: Database["public"]["Enums"]["voteInt"]
+        }
+        Insert: {
+          created_at?: string
+          definition_id?: string
+          id?: string
+          user_id?: string
+          vote: Database["public"]["Enums"]["voteInt"]
+        }
+        Update: {
+          created_at?: string
+          definition_id?: string
+          id?: string
+          user_id?: string
+          vote?: Database["public"]["Enums"]["voteInt"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "votes_definition_id_fkey"
+            columns: ["definition_id"]
+            isOneToOne: false
+            referencedRelation: "definitions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "votes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
             referencedColumns: ["id"]
           },
         ]
@@ -75,7 +130,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      voteInt: "up" | "down"
     }
     CompositeTypes: {
       [_ in never]: never
