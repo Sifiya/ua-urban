@@ -2,6 +2,7 @@ import React from 'react'
 import { getOneWord } from '@/app/api/actions';
 import { AddDefinition } from '@/features/AddDefinition';
 import { DefinitionsList } from '@/features/Definitions';
+import { Header1 } from '@/components/typography';
 
 interface WordPageProps {
   params: {
@@ -20,7 +21,7 @@ const WordPage = async ({ params: { wordId }}: WordPageProps) => {
   const { word } = await getOneWord(wordId);
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">{word}</h1>
+      <Header1>{word}</Header1>
       <DefinitionsList wordId={wordId} />
       <AddDefinition />
     </div>

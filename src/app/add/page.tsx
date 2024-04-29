@@ -1,5 +1,6 @@
 import React from 'react';
 import { AddWordForm } from '@/features/AddWord/AddWordForm';
+import { Header2 } from '@/components/typography';
  
 export const metadata = {
   title: 'Додати слово',
@@ -8,9 +9,9 @@ export const metadata = {
 const AddWordPage = () => {
   return (
     <div>
-      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-10">
+      <Header2>
         Додати нове слово
-      </h1>
+      </Header2>
       <AddWordForm />
     </div>
   );
