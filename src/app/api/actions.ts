@@ -68,7 +68,7 @@ export const getOneWord = async (id: string): Promise<MinimalWord> => {
 export const getWordDefinitions = async (wordId: string): Promise<MinimalDefinition[]> => {
   const supabase = createClient();
   const { data: definitions, error } = await supabase.from('definitions')
-    .select('id,word_id,text')
+    .select('id,word_id,text,upvotes_count,downvotes_count')
     .eq('word_id', wordId);
 
   if (error || !definitions) {

@@ -15,9 +15,15 @@ interface DefinitionsListProps {
 export const DefinitionsList = ({ wordId }: DefinitionsListProps) => {
   const { isAuthenticated } = useProfile()
   const { data: definitions = [], isLoading } = useQuery({
-    queryKey: ['word', wordId, 'definitions'],
+    queryKey: ['words', wordId, 'definitions'],
     queryFn: () => getWordDefinitions(wordId),
   });
+
+  const formattedDefinitions = definitions.map((def) => ({
+    ...def,
+    rating: def.upvotes_count - def.downvotes_count,
+  }));
+  const sortedDefinitions = formattedDefinitions.sort((a, b) => b.rating - a.rating);
 
   if (isLoading) {
     return (
@@ -27,7 +33,7 @@ export const DefinitionsList = ({ wordId }: DefinitionsListProps) => {
     );
   }
 
-  return definitions.map(({ id, text }) => (
+  return sortedDefinitions.map(({ id, text }) => (
     <Card key={id} className="py-3 px-5">
       <p>
         {text}
