@@ -5,8 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getWordDefinitions } from '@/app/api/actions';
 import { useProfile } from '@/hooks/useProfile';
 import { Card } from '@/components/ui/card';
-import GridLoader from 'react-spinners/GridLoader';
 import { VoteBlock } from './VoteBlock';
+import { Loader } from '@/components/Loader';
 
 interface DefinitionsListProps {
   wordId: string;
@@ -26,11 +26,7 @@ export const DefinitionsList = ({ wordId }: DefinitionsListProps) => {
   const sortedDefinitions = formattedDefinitions.sort((a, b) => b.rating - a.rating);
 
   if (isLoading) {
-    return (
-      <div className="w-full flex justify-center p-10">
-        <GridLoader size={15} color="#435f69" />
-      </div>
-    );
+    return <Loader />;
   }
 
   return sortedDefinitions.map(({ id, text }) => (

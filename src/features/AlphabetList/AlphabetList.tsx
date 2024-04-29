@@ -1,17 +1,27 @@
 'use client';
 
-import { useGetAllWords } from '@/hooks/useGetAllWords';
 import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getAllWords } from '@/app/api/actions';
 import { createAlphabet } from './utils';
+
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { Loader } from '@/components/Loader';
 
 interface AlphabetListProps {}
 
 export const AlphabetList = ({}: AlphabetListProps) => {
-  const words = useGetAllWords();
-  const alphabet = createAlphabet(words);
+  const { data = [], isLoading } = useQuery({
+    queryKey: ['words'],
+    queryFn: () => getAllWords(),
+  });
+  const alphabet = createAlphabet(data);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <Accordion type="multiple">
