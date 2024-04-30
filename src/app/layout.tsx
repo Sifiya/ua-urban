@@ -1,8 +1,10 @@
+import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { HeaderMenu } from "@/features/HeaderMenu";
-import "./globals.css";
 import { Providers } from "@/components/Providers";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,7 +30,18 @@ export default function RootLayout({
               {children}
             </div>
           </main>
-          <footer />
+          <footer className="border-t border-t-border p-2 pb-4">
+            <div className="flex sm:flex-row flex-col items-center justify-center mb-3">
+              <h4 className="font-semibold">Правова інформація:</h4>
+              <Link href="/terms" passHref legacyBehavior>
+                <Button variant="link">Умови користування</Button>
+              </Link>
+              <Link href="/privacy" passHref legacyBehavior>
+                <Button variant="link">Політика конфіденціальності</Button>
+              </Link>
+            </div>
+            <div className="w-full text-center text-sm">© UA Urban, 2024</div>
+          </footer>
         </Providers>
       </body>
     </html>
