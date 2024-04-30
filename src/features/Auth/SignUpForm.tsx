@@ -33,14 +33,16 @@ import {
 } from '@/components/ui/alert-dialog';
 import { FaEnvelope } from 'react-icons/fa';
 
-interface SignUpFormProps {}
+interface SignUpFormProps {
+  noButton?: boolean;
+}
 
 type SignUpFormData = {
   email: string;
   password: string;
 };
 
-export const SignUpForm = ({}: SignUpFormProps) => {
+export const SignUpForm = ({ noButton = false }: SignUpFormProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -68,9 +70,11 @@ export const SignUpForm = ({}: SignUpFormProps) => {
     <>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <Button variant="default">
-            Реєстрація
-          </Button>
+          {noButton ? <span className="w-full text-center">Реєстрація</span> : (
+            <Button variant="default">
+              Реєстрація
+            </Button>
+          )}
         </DialogTrigger>
         <DialogContent >
           <Form {...formMethods}>
