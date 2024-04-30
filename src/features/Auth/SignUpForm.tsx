@@ -70,7 +70,7 @@ export const SignUpForm = ({ noButton = false }: SignUpFormProps) => {
     <>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          {noButton ? <span className="w-full text-center">Реєстрація</span> : (
+            {noButton ? <span className="w-full text-center py-2 px-4">Реєстрація</span> : (
             <Button variant="default">
               Реєстрація
             </Button>

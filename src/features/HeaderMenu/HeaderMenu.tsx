@@ -85,13 +85,13 @@ export const HeaderMenu = () => {
             )}
             {!isAuthenticated && (
               <>
-                <DropdownMenuItem className="justify-center">
+                <div className="w-full flex justify-center">
                   <SignInForm noButton />
-                </DropdownMenuItem>
+                </div>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="justify-center bg-primary text-primary-foreground">
+                <div className="w-full flex justify-center">
                   <SignUpForm noButton />
-                </DropdownMenuItem>
+                </div>
               </>
             )}
           </DropdownMenuGroup>
