@@ -32,7 +32,7 @@ export const getVotes = async (definitionId: string): Promise<{
     getVotesByDefinitionId(definitionId),
   ]);
 
-  const userVote = userVotesData?.vote || null;
+  const userVote = userVotesData.vote?.vote || null;
 
   return {
     userVote,
@@ -41,13 +41,16 @@ export const getVotes = async (definitionId: string): Promise<{
   };
 };
 
-export const getMyVote = async (definitionId: string): Promise<Pick<MinimalVote, 'id'|'vote'> | null> => {
+export const getMyVote = async (definitionId: string): Promise<{
+  vote: Pick<MinimalVote, 'id' | 'vote'> | null,
+  error?: string,
+}> => {
   const supabase = createClient();
   const { data: userData } = await supabase.auth.getUser();
   let userId = userData?.user?.id;
 
   if (!userId) {
-    throw new Error('Не вдалося отримати ідентифікатор користувача');
+    return { error: 'Не вдалося отримуватиі ідентифікатор користувача', vote: null };
   }
 
   const { data: vote } = await supabase.from('votes')
@@ -55,7 +58,7 @@ export const getMyVote = async (definitionId: string): Promise<Pick<MinimalVote,
     .eq('definition_id', definitionId)
     .eq('user_id', userId).maybeSingle();
 
-  return vote;
+  return { vote };
 };
 
 export const setVote = async (definitionId: string, vote: 'up' | 'down') => {
@@ -68,7 +71,7 @@ export const setVote = async (definitionId: string, vote: 'up' | 'down') => {
   }
 
   // check if user already voted
-  const myVote = await getMyVote(definitionId);
+  const { vote: myVote } = await getMyVote(definitionId);
 
   if (myVote) {
     const oldVote = myVote.vote;
