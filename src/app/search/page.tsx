@@ -1,3 +1,4 @@
+import { BackButton } from '@/features/BackButton';
 import { SearchBlockNoPopover, SearchList, SearchMainBlock } from '@/features/Search';
 import { title } from 'process';
 import React from 'react';
@@ -16,7 +17,10 @@ export function generateMetadata({ searchParams: { word } }: SearchPageProps) {
 
 const SearchPage = ({ searchParams: { word } }: SearchPageProps) => {
   return (
-    <div className="flex flex-col items-center -mt-5">
+    <div className="flex flex-col items-center">
+      <div className="w-full -mb-5">
+        <BackButton className="-ml-4" />
+      </div>
       <SearchBlockNoPopover initialSearch={word} />
       <div className="w-full max-w-[700px]">
         {word && <SearchList searchString={word} />}
