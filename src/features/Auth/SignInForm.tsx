@@ -22,14 +22,16 @@ import {
 } from '@/components/ui/form';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
-interface SignInFormProps {}
+interface SignInFormProps {
+  noButton?: boolean;
+}
 
 type SignInFormData = {
   email: string;
   password: string;
 };
 
-export const SignInForm = ({}: SignInFormProps) => {
+export const SignInForm = ({ noButton = false }: SignInFormProps) => {
   const queryClient = useQueryClient();
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -58,7 +60,7 @@ export const SignInForm = ({}: SignInFormProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Вхід</Button>
+        {noButton ? <span className="w-full text-center">Вхід</span> : <Button variant="outline">Вхід</Button>}
       </DialogTrigger>
       <DialogContent>
         <Form {...formMethods}>
