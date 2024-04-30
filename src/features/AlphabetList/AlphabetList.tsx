@@ -5,10 +5,10 @@ import { useQuery } from '@tanstack/react-query';
 import { getAllWords } from '@/app/api/actions';
 import { createAlphabet } from './utils';
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Loader } from '@/components/Loader';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface AlphabetListProps {}
 
@@ -23,30 +23,34 @@ export const AlphabetList = ({}: AlphabetListProps) => {
     return <Loader />;
   }
 
+  if (!alphabet.length) {
+    return null;
+  }
+
   return (
-    <Accordion type="multiple">
-      {alphabet.map(([letter, words]) => (
-        <AccordionItem value={letter} key={`${letter}-letter`}>
-          <AccordionTrigger>
-            <div className="w-64 text-start">
-              {letter}
-            </div>
-          </AccordionTrigger>
-          <AccordionContent>
-            <ul>
-              {words.map((word) => (
-                <li key={word.id}>
-                  <Link href={`/word/${word.id}`}>
-                    <Button variant="link">
-                      {word.word}
-                    </Button>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </AccordionContent>
-        </AccordionItem>
+    <Tabs defaultValue={`${alphabet[0][0]}-tab`}>
+      <TabsList className="flex flex-wrap h-fit">
+      {alphabet.map(([letter]) => (
+        <TabsTrigger key={`${letter}-letter-tabname`} value={`${letter}-tab`}>
+          {letter}
+        </TabsTrigger>
       ))}
-    </Accordion>
-  );
+      </TabsList>
+      {alphabet.map(([letter, words]) => (
+        <TabsContent key={`${letter}-tab-content`} value={`${letter}-tab`}>
+          <ul className="flex flex-wrap">
+            {words.map((word) => (
+            <li key={word.id} className="w-fit">
+              <Link href={`/word/${word.id}`}>
+                <Button variant="link">
+                  {word.word}
+                </Button>
+              </Link>
+              </li>
+            ))}
+          </ul>
+        </TabsContent>
+      ))}
+    </Tabs>
+    );
 };
