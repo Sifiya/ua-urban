@@ -20,15 +20,15 @@ describe('AlphabetList', () => {
   test('should render the AlphabetList component', async () => {
     render(<AlphabetList />);
     
-    expect(await screen.findByText(/A/i)).toBeInTheDocument();
-    expect(screen.getByText(/B/i)).toBeInTheDocument();
-    expect(screen.getByText(/O/i)).toBeInTheDocument();
+    expect(await screen.findByText('A')).toBeInTheDocument();
+    expect(screen.getByText('B')).toBeInTheDocument();
+    expect(screen.getByText('O')).toBeInTheDocument();
 
-    await user.click(screen.getByText(/A/i));
+    await user.click(screen.getByText('A'));
     expect(screen.getByText(/apple/i)).toBeInTheDocument();
-    await user.click(screen.getByText(/B/i));
+    await user.click(screen.getByText('B'));
     expect(screen.getByText(/banana/i)).toBeInTheDocument();
-    await user.click(screen.getByText(/O/i));
+    await user.click(screen.getByText('O'));
     expect(screen.getByText(/orange/i)).toBeInTheDocument();
   });
 });
