@@ -23,7 +23,7 @@ export default function RootLayout({
           <header className="p-2 border-b border-b-border">
             <HeaderMenu />
           </header>
-          <main className="lg:py-8 lg:px-10 px-5 flex justify-center grow">
+          <main className="lg:py-8 py-5 lg:px-10 px-5 flex justify-center grow">
             <div className="max-w-[1000px] lg:w-9/12 w-full">
               {children}
             </div>
