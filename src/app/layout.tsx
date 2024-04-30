@@ -20,11 +20,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <header className="min-h-12 p-2 border-b border-b-border">
+          <header className="p-2 border-b border-b-border">
             <HeaderMenu />
           </header>
-          <main className="py-8 px-10 flex justify-center grow">
-            <div className="max-w-[1000px] w-9/12">
+          <main className="lg:py-8 lg:px-10 px-5 flex justify-center grow">
+            <div className="max-w-[1000px] lg:w-9/12 w-full">
               {children}
             </div>
           </main>
