@@ -3,7 +3,6 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getWordDefinitions } from '@/app/api/actions';
-import { useProfile } from '@/hooks/useProfile';
 import { Card, CardContent } from '@/components/ui/card';
 import { VoteBlock } from './VoteBlock';
 import { Loader } from '@/components/Loader';
@@ -14,7 +13,6 @@ interface DefinitionsListProps {
 }
 
 export const DefinitionsList = ({ wordId }: DefinitionsListProps) => {
-  const { isAuthenticated } = useProfile()
   const { data: definitions = [], isLoading } = useQuery({
     queryKey: ['words', wordId, 'definitions'],
     queryFn: () => getWordDefinitions(wordId),
@@ -30,11 +28,16 @@ export const DefinitionsList = ({ wordId }: DefinitionsListProps) => {
     return <Loader />;
   }
 
-  return sortedDefinitions.map(({ id, text }) => (
+  return sortedDefinitions.map(({ id, text, upvotes_count, downvotes_count }) => (
     <Card key={id} className="py-3 px-5">
       <CardContent>
         <Paragraph>{text}</Paragraph>
-        {isAuthenticated && (<VoteBlock definitionId={id} wordId={wordId} />)}
+        <VoteBlock 
+          definitionId={id}
+          wordId={wordId}
+          upvotes={upvotes_count}
+          downvotes={downvotes_count}
+        />
       </CardContent>
     </Card>
   ));
