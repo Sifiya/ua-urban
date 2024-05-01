@@ -9,6 +9,9 @@ export default function Home() {
       <Paragraph className="max-w-[500px]">
         Цей сайт має на меті збирати та систематизувати український сленг,
         як неодмінну частину сучасної інтернет-культури.
+        <br /><br />
+        Ви можете самостійно додавати визначення і нові слова на сайт,
+        для цього потрібно <span className="font-semibold cursor-pointer hover:underline">зареєструватися</span>.
       </Paragraph>
 
       <SearchMainBlock />
