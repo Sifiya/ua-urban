@@ -35,7 +35,7 @@
     "react-spinners": "^0.13.8",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.23.4"
+    "zod": "^3.23.5"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^1.8.0",
