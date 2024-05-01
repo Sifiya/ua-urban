@@ -57,7 +57,7 @@ export const HeaderMenu = () => {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <FaBars size={24} />
+          <FaBars size={24} aria-label="Відкрити меню" />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-screen">
           <DropdownMenuGroup>

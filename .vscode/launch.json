@@ -15,7 +15,24 @@
         "--config",
         "jest.config.ts",
         "--watchAll",
-        //"--coverage",
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "windows": {
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest + Coverage Current File",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": [
+        "--runTestsByPath",
+        "${relativeFileDirname}/${fileBasename}",
+        "--config",
+        "jest.config.ts",
+        "--coverage",
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
