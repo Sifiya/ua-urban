@@ -31,45 +31,45 @@ export const SearchMainBlock = () => {
         </CardTitle>
       </CardHeader>
       <CardContent>
-          <div className="flex sm:flex-row flex-col items-center sm:gap-2 mb-3">
-            <FaSearch className="text-muted/60 sm:visible invisible sm:w-fit sm:h-fit w-0 h-0" size={30} />
-            <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
-              <PopoverAnchor asChild>
-                <Input
-                  value={searchString}
-                  placeholder="Шукати слово..."
-                  className="text-foreground sm:mb-0 mb-5"
-                  onChange={(e) => setSearchString(e.target.value)}
-                />
-              </PopoverAnchor>
-              <PopoverContent 
-                className="search-popover-content px-0 py-1"
-                align="start"
-                onOpenAutoFocus={(e) => e.preventDefault()}
-              >
-                <Table>
-                  <TableBody>
-                    {words?.map((word) => (
-                      <TableRow key={word.id}>
-                        <TableCell className="p-0">
-                          <Link href={`/word/${word.id}`} className="w-full block py-2 px-4">
-                            {word.word}
-                          </Link>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </PopoverContent>
-            </Popover>
-            <Link href={`/search?word=${searchString}`} className="sm:w-fit w-full">
-              <Button 
-                variant="secondary"
-                className="text-foreground sm:w-fit w-full">
-                Пошук
-              </Button>
-            </Link>
-          </div>
+        <div className="flex sm:flex-row flex-col items-center sm:gap-2 mb-3">
+          <FaSearch className="text-muted/60 sm:visible invisible sm:w-fit sm:h-fit w-0 h-0" size={30} />
+          <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+            <PopoverAnchor asChild>
+              <Input
+                value={searchString}
+                placeholder="Шукати слово..."
+                className="text-foreground sm:mb-0 mb-5"
+                onChange={(e) => setSearchString(e.target.value)}
+              />
+            </PopoverAnchor>
+            <PopoverContent 
+              className="search-popover-content px-0 py-1"
+              align="start"
+              onOpenAutoFocus={(e) => e.preventDefault()}
+            >
+              <Table>
+                <TableBody>
+                  {words?.map((word) => (
+                    <TableRow key={word.id}>
+                      <TableCell className="p-0">
+                        <Link href={`/word/${word.id}`} className="w-full block py-2 px-4">
+                          {word.word}
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </PopoverContent>
+          </Popover>
+          <Link href={`/search?word=${searchString}`} className="sm:w-fit w-full">
+            <Button 
+              variant="secondary"
+              className="text-foreground sm:w-fit w-full">
+              Пошук
+            </Button>
+          </Link>
+        </div>
       </CardContent>
     </Card>
   );

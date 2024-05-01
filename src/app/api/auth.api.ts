@@ -10,7 +10,7 @@ const withErrorHandling = <T, K>(data?: K, error?: T): {
     return { error: error || null, success: false };
   }
 
-  return { error: null, success: true, data};
+  return { error: null, success: true, data };
 };
 
 export const signUp = async (email: string, password: string) => {
@@ -35,7 +35,7 @@ export const signInWithEmail = async (email: string, password: string) => {
 
 export async function signOut() {
   const supabase = createClient();
-  const { error } = await supabase.auth.signOut()
+  const { error } = await supabase.auth.signOut();
   return withErrorHandling(true, error);
 }
 
@@ -48,4 +48,4 @@ export const getUser = async () => {
     return { isAuthenticated: false };
   }
   return { isAuthenticated: true, email: data.user.email };
-}
+};

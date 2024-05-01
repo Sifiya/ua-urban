@@ -21,22 +21,22 @@ export const SearchBlockNoPopover = ({ initialSearch }: SearchBlockNoPopoverProp
         </CardTitle>
       </CardHeader>
       <CardContent>
-          <div className="flex items-center gap-2 mb-3">
-            <FaSearch className="text-muted/60" size={30} />
-              <Input
-                value={searchString}
-                placeholder="Шукати слово..."
-                className="text-foreground"
-                onChange={(e) => setSearchString(e.target.value)}
-              />
-            <Link href={`/search?word=${searchString}`}>
-              <Button 
-                variant="secondary"
-                className="text-foreground">
-                Пошук
-              </Button>
-            </Link>
-          </div>
+        <div className="flex items-center gap-2 mb-3">
+          <FaSearch className="text-muted/60" size={30} />
+          <Input
+            value={searchString}
+            placeholder="Шукати слово..."
+            className="text-foreground"
+            onChange={(e) => setSearchString(e.target.value)}
+          />
+          <Link href={`/search?word=${searchString}`}>
+            <Button 
+              variant="secondary"
+              className="text-foreground">
+              Пошук
+            </Button>
+          </Link>
+        </div>
       </CardContent>
     </Card>
   );

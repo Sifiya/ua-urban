@@ -27,7 +27,7 @@ export const getVotes = async (definitionId: string): Promise<{
   upvotes: number;
   downvotes: number;
 }> => {
-  const [userVotesData, {upvotes, downvotes}] = await Promise.all([
+  const [userVotesData, { upvotes, downvotes }] = await Promise.all([
     getMyVote(definitionId),
     getVotesByDefinitionId(definitionId),
   ]);
@@ -88,9 +88,9 @@ export const setVote = async (definitionId: string, vote: 'up' | 'down') => {
       );
     }
   } else {
-      await supabase.rpc(
-        vote === 'up' ? 'add_upvote' : 'add_downvote',
-        { insert_definition_id: definitionId }
-      );
+    await supabase.rpc(
+      vote === 'up' ? 'add_upvote' : 'add_downvote',
+      { insert_definition_id: definitionId }
+    );
   }
-}
+};

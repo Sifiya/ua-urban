@@ -5,7 +5,7 @@ export function useMediaQuery(query: string) {
 
   React.useEffect(() => {
     function onChange(event: MediaQueryListEvent) {
-      setValue(event.matches)
+      setValue(event.matches);
     }
 
     const result = matchMedia(query);

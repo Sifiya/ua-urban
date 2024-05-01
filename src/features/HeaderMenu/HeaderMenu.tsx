@@ -51,13 +51,13 @@ export const HeaderMenu = () => {
         queryKey: ['profile']
       });
     }
-  }
+  };
 
   if (!isDesktop) {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger>
-            <FaBars size={24} />
+          <FaBars size={24} />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-screen">
           <DropdownMenuGroup>

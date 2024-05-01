@@ -60,7 +60,9 @@ export const SignInForm = ({ noButton = false }: SignInFormProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        {noButton ? <span className="w-full text-center py-2 px-4">Вхід</span> : <Button variant="outline">Вхід</Button>}
+        {noButton
+          ? <span className="w-full text-center py-2 px-4">Вхід</span>
+          : <Button variant="outline">Вхід</Button>}
       </DialogTrigger>
       <DialogContent>
         <Form {...formMethods}>

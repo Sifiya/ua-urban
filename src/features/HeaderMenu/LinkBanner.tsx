@@ -1,5 +1,6 @@
 'use server';
 import React from 'react';
+import clsx from 'clsx';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 import { FaLink } from 'react-icons/fa';
@@ -20,12 +21,16 @@ export const LinkBanner = ({}: LinkBannerProps) => {
    
     <Link 
       href={`https://${OFFICIAL_HOST}`}
-      className="bg-primary text-primary-foreground text-sm w-full p-3 flex items-center justify-center hover:opacity-90 transition-opacity"
+      className={clsx(
+        'text-primary-foreground text-sm',
+        'bg-primary w-full p-3 flex items-center justify-center',
+        'hover:opacity-90 transition-opacity'
+      )}
     >
-        <FaLink className="mr-2" />
-        <span>Сайт переїхав на</span>
-        <span className="underline ml-1 text-secondary">{OFFICIAL_HOST}</span>
-        <FaLink className="ml-2" />
+      <FaLink className="mr-2" />
+      <span>Сайт переїхав на</span>
+      <span className="underline ml-1 text-secondary">{OFFICIAL_HOST}</span>
+      <FaLink className="ml-2" />
     </Link>
   );
 };
