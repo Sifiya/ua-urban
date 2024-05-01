@@ -1,4 +1,4 @@
-import { Word } from "@/types/types";
+import { Word } from '@/types/types';
 
 export const createAlphabet = (words: Word[]): [string, Word[]][] => {
   const alphabetHash: Record<string, Word[]> = {};

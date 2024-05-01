@@ -30,27 +30,27 @@ export const AlphabetList = ({}: AlphabetListProps) => {
   return (
     <Tabs defaultValue={`${alphabet[0][0]}-tab`}>
       <TabsList className="flex flex-wrap h-fit">
-      {alphabet.map(([letter]) => (
-        <TabsTrigger key={`${letter}-letter-tabname`} value={`${letter}-tab`}>
-          {letter}
-        </TabsTrigger>
-      ))}
+        {alphabet.map(([letter]) => (
+          <TabsTrigger key={`${letter}-letter-tabname`} value={`${letter}-tab`}>
+            {letter}
+          </TabsTrigger>
+        ))}
       </TabsList>
       {alphabet.map(([letter, words]) => (
         <TabsContent key={`${letter}-tab-content`} value={`${letter}-tab`}>
           <ul className="flex flex-wrap">
             {words.map((word) => (
-            <li key={word.id} className="w-fit">
-              <Link href={`/word/${word.id}`}>
-                <Button variant="link">
-                  {word.word}
-                </Button>
-              </Link>
+              <li key={word.id} className="w-fit">
+                <Link href={`/word/${word.id}`}>
+                  <Button variant="link">
+                    {word.word}
+                  </Button>
+                </Link>
               </li>
             ))}
           </ul>
         </TabsContent>
       ))}
     </Tabs>
-    );
+  );
 };

@@ -1,3 +1,12 @@
 {
-  "extends": "next/core-web-vitals"
+  "plugins": ["@stylistic"],
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "@stylistic/semi": ["error"],
+    "@stylistic/quotes": ["error", "single"],
+    "@stylistic/indent": ["warn", 2],
+    "@stylistic/eol-last": ["error", "always"],
+    "@stylistic/object-curly-spacing": ["error", "always"],
+    "@stylistic/max-len": ["error", { "code": 120 }]
+  }
 }

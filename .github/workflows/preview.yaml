@@ -11,6 +11,21 @@ on:
       - master
 
 jobs:
+  Lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - run: npm ci
+
+      - name: Run linter
+        run: npm run lint
   Test:
     runs-on: ubuntu-latest
     steps:
@@ -28,7 +43,7 @@ jobs:
         run: npm run test
 
   Deploy-Preview:
-    needs: [Test]
+    needs: [Test, Lint]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

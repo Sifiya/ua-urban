@@ -2,7 +2,7 @@ import { Word } from '@/types/types';
 import { createAlphabet } from './utils';
 
 describe('createAlphabet', () => {
-  test('should return an array of tuples with the first letter of the word and the words starting with that letter', () => {
+  test('should return an array of tuples with the first letter of the word and the words', () => {
     const words = [
       { id: 1, word: 'apple' },
       { id: 2, word: 'banana' },

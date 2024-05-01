@@ -7,8 +7,8 @@ export const Loader = () => {
   const [isServer, setIsServer] = React.useState(true);
 
   useEffect(() => {
-    setIsServer(typeof window === 'undefined')
-  }, [])
+    setIsServer(typeof window === 'undefined');
+  }, []);
 
   if (isServer) {
     return null;

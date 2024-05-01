@@ -1,17 +1,17 @@
-import "./globals.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { HeaderMenu } from "@/features/HeaderMenu";
-import { Providers } from "@/components/Providers";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { LinkBanner } from "@/features/HeaderMenu/LinkBanner";
+import './globals.css';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import { HeaderMenu } from '@/features/HeaderMenu';
+import { Providers } from '@/components/Providers';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { LinkBanner } from '@/features/HeaderMenu/LinkBanner';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Урбаністичний словник української мови",
-  description: "Найкращі надбання інтернет культури для ваших послуг",
+  title: 'Урбаністичний словник української мови',
+  description: 'Найкращі надбання інтернет культури для ваших послуг',
 };
 
 export default function RootLayout({

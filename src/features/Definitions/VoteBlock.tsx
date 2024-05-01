@@ -4,6 +4,7 @@ import React from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useProfile } from '@/hooks/useProfile';
 import { setVote, getMyVote } from '@/app/api/vote.api';
+import clsx from 'clsx';
 
 import { 
   FaRegThumbsDown,
@@ -29,7 +30,7 @@ export const VoteBlock = ({
 }: VoteBlockProps) => {
   const { isAuthenticated } = useProfile();
 
-  const SHARED_VOTE_KEY = ['words', wordId, 'definitions', definitionId, 'votes']
+  const SHARED_VOTE_KEY = ['words', wordId, 'definitions', definitionId, 'votes'];
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
     mutationKey: SHARED_VOTE_KEY,
@@ -53,7 +54,11 @@ export const VoteBlock = ({
         <p>{upvotes}</p>
         <Button 
           disabled={!isAuthenticated}
-          className="p-1 bg-transparent hover:bg-transparent hover:opacity-70 text-card-foreground relative -top-[3px] disabled:opacity-100"
+          className={clsx(
+            'hover:bg-transparent hover:opacity-70',
+            'relative -top-[3px]',
+            'p-1 bg-transparent text-card-foreground disabled:opacity-100'
+          )}
           onClick={() => isAuthenticated && mutate('up')}
         >
           {userVote === 'up' ? <FaThumbsUp size={20} /> : <FaRegThumbsUp size={20} />}
