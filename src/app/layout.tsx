@@ -39,7 +39,7 @@ export default function RootLayout({
                 <Button variant="link">Умови користування</Button>
               </Link>
               <Link href="/privacy" passHref legacyBehavior>
-                <Button variant="link">Політика конфіденціальності</Button>
+                <Button variant="link">Політика конфіденційності</Button>
               </Link>
             </div>
             <div className="w-full text-center text-sm">© UA Urban, 2024</div>
