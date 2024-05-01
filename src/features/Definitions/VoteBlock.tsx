@@ -50,9 +50,10 @@ export const VoteBlock = ({
   return (
     <div>
       <div className="flex justify-end items-center relative -mb-2">
-        {isPending && <ClipLoader size={15} className="mr-1" />}
+        {isPending && <ClipLoader aria-label="Оновлюється" size={15} className="mr-1" />}
         <p>{upvotes}</p>
         <Button 
+          aria-label="Проголосувати за визначення"
           disabled={!isAuthenticated}
           className={clsx(
             'hover:bg-transparent hover:opacity-70',
@@ -66,6 +67,7 @@ export const VoteBlock = ({
 
         <p className="ml-2">{downvotes}</p>
         <Button
+          aria-label="Проголосувати проти визначення"
           disabled={!isAuthenticated}
           className="p-1 bg-transparent hover:bg-transparent hover:opacity-70 text-card-foreground disabled:opacity-100"
           onClick={() => isAuthenticated && mutate('down')}
