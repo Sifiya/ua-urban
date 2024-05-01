@@ -1,11 +1,16 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { userEvent, UserEvent } from '@testing-library/user-event';
+import * as router from 'next/navigation';
 import { mockAddWordWithDefinition, mockGetUser } from './mockActions';
 
 import AddWordPage from '@/app/add/page';
 
 let user: UserEvent;
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn(),
+}));
+const useRouterMock = router.useRouter as jest.Mock;
 
 describe('AddWordPage', () => {
   beforeEach(() => {
@@ -23,7 +28,11 @@ describe('AddWordPage', () => {
   });
 
   test('should call addWordWithDefinition on submit', async () => {
-    mockAddWordWithDefinition.mockResolvedValue({ success: true });
+    const routerPushMock = jest.fn();
+    useRouterMock.mockReturnValue({
+      push: routerPushMock,
+    });
+    mockAddWordWithDefinition.mockResolvedValue({ success: true, word_id: 1 });
     const jsx = await AddWordPage();
 
     render(jsx);
@@ -41,5 +50,25 @@ describe('AddWordPage', () => {
     await user.click(button);
 
     expect(mockAddWordWithDefinition).toHaveBeenCalledWith(word, definition);
+    expect(routerPushMock).toHaveBeenCalledWith('/word/1');
+  });
+
+  test('should log error', async () => {
+    mockAddWordWithDefinition.mockResolvedValue({ error: 'error' });
+    const jsx = await AddWordPage();
+    const consoleError = console.error;
+    console.error = jest.fn();
+
+    render(jsx);
+
+    await user.click(screen.getByRole('textbox', { name: /слово/i }));
+    await user.paste('word');
+    await user.click(screen.getByRole('textbox', { name: /визначення/i }));
+    await user.paste('definition');
+
+    await user.click(screen.getByRole('button', { name: /додати/i }));
+
+    expect(console.error).toHaveBeenCalledWith('error');
+    console.error = consoleError;
   });
 });

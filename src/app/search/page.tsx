@@ -1,6 +1,5 @@
 import { BackButton } from '@/features/BackButton';
-import { SearchBlockNoPopover, SearchList, SearchMainBlock } from '@/features/Search';
-import { title } from 'process';
+import { SearchBlockNoPopover, SearchList } from '@/features/Search';
 import React from 'react';
 
 interface SearchPageProps {
