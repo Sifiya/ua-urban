@@ -86,11 +86,15 @@ export const HeaderMenu = () => {
             {!isAuthenticated && (
               <>
                 <div className="w-full flex justify-center">
-                  <SignInForm noButton />
+                  <SignInForm trigger={
+                    <span className="w-full text-center py-2 px-4">Вхід</span>
+                  } />
                 </div>
                 <DropdownMenuSeparator />
                 <div className="w-full flex justify-center">
-                  <SignUpForm noButton />
+                  <SignUpForm trigger={
+                    <span className="w-full text-center py-2 px-4">Реєстрація</span>
+                  } />
                 </div>
               </>
             )}
@@ -128,8 +132,14 @@ export const HeaderMenu = () => {
         )}
         {!isAuthenticated && (
           <>
-            <SignInForm />
-            <SignUpForm />
+            <SignInForm trigger={(
+              <Button variant="outline">Вхід</Button>
+            )} />
+            <SignUpForm trigger={(
+              <Button variant="default">
+                Реєстрація
+              </Button>
+            )}/>
           </>
         )}
       </div>

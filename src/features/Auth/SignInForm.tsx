@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+'use client';
+import React, { ReactNode, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useQueryClient } from '@tanstack/react-query'; 
 import { signInWithEmail } from '@/app/api/auth.api';
@@ -23,7 +24,7 @@ import {
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface SignInFormProps {
-  noButton?: boolean;
+  trigger: ReactNode;
 }
 
 type SignInFormData = {
@@ -31,7 +32,7 @@ type SignInFormData = {
   password: string;
 };
 
-export const SignInForm = ({ noButton = false }: SignInFormProps) => {
+export const SignInForm = ({ trigger }: SignInFormProps) => {
   const queryClient = useQueryClient();
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -60,9 +61,7 @@ export const SignInForm = ({ noButton = false }: SignInFormProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        {noButton
-          ? <span className="w-full text-center py-2 px-4">Вхід</span>
-          : <Button variant="outline">Вхід</Button>}
+        {trigger}
       </DialogTrigger>
       <DialogContent>
         <Form {...formMethods}>

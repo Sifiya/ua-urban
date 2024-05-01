@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { signUp } from '@/app/api/auth.api';
 
@@ -32,9 +32,10 @@ import {
   AlertDialogTitle
 } from '@/components/ui/alert-dialog';
 import { FaEnvelope } from 'react-icons/fa';
+import Link from 'next/link';
 
 interface SignUpFormProps {
-  noButton?: boolean;
+  trigger: ReactNode;
 }
 
 type SignUpFormData = {
@@ -42,7 +43,7 @@ type SignUpFormData = {
   password: string;
 };
 
-export const SignUpForm = ({ noButton = false }: SignUpFormProps) => {
+export const SignUpForm = ({ trigger }: SignUpFormProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -69,13 +70,7 @@ export const SignUpForm = ({ noButton = false }: SignUpFormProps) => {
   return (
     <>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogTrigger asChild>
-          {noButton ? <span className="w-full text-center py-2 px-4">Реєстрація</span> : (
-            <Button variant="default">
-              Реєстрація
-            </Button>
-          )}
-        </DialogTrigger>
+        <DialogTrigger asChild>{trigger}</DialogTrigger>
         <DialogContent >
           <Form {...formMethods}>
             <form className="flex flex-col gap-5" onSubmit={formMethods.handleSubmit(onSubmit)}>
@@ -113,6 +108,16 @@ export const SignUpForm = ({ noButton = false }: SignUpFormProps) => {
                   )}
                 />
 
+                <p className="text-xs my-2 mx-1">
+                  Натискаючи кнопку &quot;Зареєструватися&quot;, ви погоджуєтесь з нашою
+                  <Link href="/privacy" className="mx-1 underline font-semibold" onClick={() => setIsOpen(false)}>
+                    політикою конфіденційності
+                  </Link>
+                  і
+                  <Link href="/terms" className="ml-1 underline font-semibold" onClick={() => setIsOpen(false)}>
+                    умовами користування сайтом
+                  </Link>.
+                </p>
               </div>
               <DialogFooter>
                 <Button type="submit">Зареєструватися</Button>
