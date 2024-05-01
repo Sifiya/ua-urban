@@ -12,6 +12,8 @@ const config: Config = {
   moduleNameMapper: {
     '@/(.*)': '<rootDir>/src/$1',
   },
+  coverageProvider: 'v8',
+  collectCoverageFrom: ['src/**/*.{ts,tsx}', '!**/*.d.ts'],
 };
 
 export default createJestConfig(config);

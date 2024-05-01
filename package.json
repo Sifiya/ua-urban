@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --runInBand --forceExit"
+    "test": "jest --runInBand --forceExit",
+    "test:cov": "jest --coverage --runInBand --forceExit"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
