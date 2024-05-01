@@ -3,6 +3,8 @@
 import React, { ReactNode, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { signUp } from '@/app/api/auth.api';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import {
   Dialog,
@@ -20,6 +22,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from '@/components/ui/form';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
@@ -48,12 +51,19 @@ export const SignUpForm = ({ trigger }: SignUpFormProps) => {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const formMethods = useForm<SignUpFormData>({
+  const formSchema = z.object({
+    email: z.string().email('Введіть коректну електронну пошту'),
+    password: z.string().min(6, { message: 'Пароль повинен містити мінімум 6 символів' }),
+  });
+  const formMethods = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    mode: 'onBlur',
     defaultValues: {
       email: '',
       password: '',
     },
   });
+  const { handleSubmit, formState: { isValid } } = formMethods;
 
   const onSubmit = async ({ email, password }: SignUpFormData) => {
     const { success, error } = await signUp(email, password);
@@ -73,7 +83,7 @@ export const SignUpForm = ({ trigger }: SignUpFormProps) => {
         <DialogTrigger asChild>{trigger}</DialogTrigger>
         <DialogContent >
           <Form {...formMethods}>
-            <form className="flex flex-col gap-5" onSubmit={formMethods.handleSubmit(onSubmit)}>
+            <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
               <DialogHeader>
                 <DialogTitle>Реєстрація</DialogTitle>
               </DialogHeader>
@@ -93,6 +103,7 @@ export const SignUpForm = ({ trigger }: SignUpFormProps) => {
                       <FormControl>
                         <Input placeholder="Введіть електронну пошту" {...field} />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -104,6 +115,7 @@ export const SignUpForm = ({ trigger }: SignUpFormProps) => {
                       <FormControl>
                         <Input placeholder="Введіть пароль" type="password" {...field} />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -120,7 +132,7 @@ export const SignUpForm = ({ trigger }: SignUpFormProps) => {
                 </p>
               </div>
               <DialogFooter>
-                <Button type="submit">Зареєструватися</Button>
+                <Button type="submit" disabled={!isValid}>Зареєструватися</Button>
               </DialogFooter>
             </form>
           </Form>
