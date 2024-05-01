@@ -2,6 +2,7 @@
 
 import React, { ReactNode, useMemo } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 interface ProvidersProps {
   isTest?: boolean;
@@ -16,9 +17,11 @@ export const Providers = ({ isTest, children }: ProvidersProps) => {
       },
     },
   } : {}), [ isTest ]);
+  const gaId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
 
   return (
     <QueryClientProvider client={queryClient}>
+      {gaId && <GoogleAnalytics gaId={gaId} />}
       {children}
     </QueryClientProvider>
   );
