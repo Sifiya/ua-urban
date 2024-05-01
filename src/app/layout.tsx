@@ -5,6 +5,7 @@ import { HeaderMenu } from "@/features/HeaderMenu";
 import { Providers } from "@/components/Providers";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { LinkBanner } from "@/features/HeaderMenu/LinkBanner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
           <header className="p-2 border-b border-b-border">
             <HeaderMenu />
           </header>
+          <LinkBanner />
           <main className="lg:py-8 py-5 lg:px-10 px-5 flex justify-center grow">
             <div className="max-w-[1000px] lg:w-9/12 w-full">
               {children}
