@@ -22,6 +22,7 @@
     "@radix-ui/react-popover": "^1.0.7",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tabs": "^1.0.4",
+    "@sentry/nextjs": "^7.112.2",
     "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "^2.42.7",
     "@tanstack/react-query": "^5.32.0",
