@@ -45,11 +45,16 @@ SUPABASE_API_URL=ваш_апі
 SUPABASE_API_KEY=ваш_ключ
 ```
 
+Встановіть залежності:
+
+```bash
+npm install
+```
+
 Після цього запуск:
 
 ```bash
-$ npm install
-$ npm run dev
+npm run dev
 ```
 
 Вітаю, у вас є власний словничок!
