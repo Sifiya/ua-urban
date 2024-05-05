@@ -40,7 +40,7 @@ UI - [shadcn](https://ui.shadcn.com/docs/installation/next)
 
 Створіть .env файлик куди треба буде додати:
 
-```
+```env
 SUPABASE_API_URL=ваш_апі
 SUPABASE_API_KEY=ваш_ключ
 ```
