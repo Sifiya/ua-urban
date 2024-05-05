@@ -11,8 +11,9 @@ UI - [shadcn](https://ui.shadcn.com/docs/installation/next)
 
 ## Запуск проєкту
 
-Вам знадобиться створити власний проєкт на [supabase](https://supabase.com/) якщо ви захочете запустити словник локально. 
+Вам знадобиться створити власний проєкт на [supabase](https://supabase.com/) якщо ви захочете запустити словник локально.
 Дані:
+
 ```
   - words
     - id UUID
@@ -21,7 +22,7 @@ UI - [shadcn](https://ui.shadcn.com/docs/installation/next)
     - created_at TIMESTAMPTZ
   - definitions
     - id UUID
-    - word_id UUID 
+    - word_id UUID
     - author_id UUID (беремо з юзера)
     - text TEXT
     - upvotes_count INT
@@ -38,16 +39,17 @@ UI - [shadcn](https://ui.shadcn.com/docs/installation/next)
 Таблицям знадобляться коректні правила доступу до читання і запису.
 
 Створіть .env файлик куди треба буде додати:
+
 ```
-  SUPABASE_API_URL=ваш_апі
-  SUPABASE_API_KEY=ваш_ключ
+SUPABASE_API_URL=ваш_апі
+SUPABASE_API_KEY=ваш_ключ
 ```
 
 Після цього запуск:
 
-```
-    npm install
-    npm run dev
+```bash
+$ npm install
+$ npm run dev
 ```
 
 Вітаю, у вас є власний словничок!
