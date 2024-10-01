@@ -11,43 +11,50 @@ UI - [shadcn](https://ui.shadcn.com/docs/installation/next)
 
 ## Запуск проєкту
 
-Вам знадобиться створити власний проєкт на [supabase](https://supabase.com/) якщо ви захочете запустити словник локально. 
+Вам знадобиться створити власний проєкт на [supabase](https://supabase.com/) якщо ви захочете запустити словник локально.
 Дані:
+
 ```
-  - words
-    - id UUID
-    - author_id UUID (беремо з юзера)
-    - word VARCHAR
-    - created_at TIMESTAMPTZ
-  - definitions
-    - id UUID
-    - word_id UUID 
-    - author_id UUID (беремо з юзера)
-    - text TEXT
-    - upvotes_count INT
-    - downvotes_count INT
-    - created_at TIMESTAMPTZ
-  - votes
-    - id UUID
-    - vote 'up' | 'down'
-    - user_id UUID (беремо з юзера)
-    - definition_id UUID
-    - created_at TIMESTAMPTZ
+- words
+  - id UUID
+  - author_id UUID (беремо з юзера)
+  - word VARCHAR
+  - created_at TIMESTAMPTZ
+- definitions
+  - id UUID
+  - word_id UUID
+  - author_id UUID (беремо з юзера)
+  - text TEXT
+  - upvotes_count INT
+  - downvotes_count INT
+  - created_at TIMESTAMPTZ
+- votes
+  - id UUID
+  - vote 'up' | 'down'
+  - user_id UUID (беремо з юзера)
+  - definition_id UUID
+  - created_at TIMESTAMPTZ
 ```
 
 Таблицям знадобляться коректні правила доступу до читання і запису.
 
 Створіть .env файлик куди треба буде додати:
+
+```env
+SUPABASE_API_URL=ваш_апі
+SUPABASE_API_KEY=ваш_ключ
 ```
-  SUPABASE_API_URL=ваш_апі
-  SUPABASE_API_KEY=ваш_ключ
+
+Встановіть залежності:
+
+```bash
+npm install
 ```
 
 Після цього запуск:
 
-```
-    npm install
-    npm run dev
+```bash
+npm run dev
 ```
 
 Вітаю, у вас є власний словничок!
